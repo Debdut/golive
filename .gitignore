@@ -1,0 +1,6 @@
+.DS_Store
+bin/
+go-live
+*.out
+*.html
+vendor/
