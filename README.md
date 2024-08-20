@@ -1,6 +1,8 @@
 # golive
 
-golive is a lightweight and improved live-server alternative written in Go. It allows you to serve a directory and its subpaths over HTTP or HTTPS with ease.
+golive is a lightweight and improved `live-server` alternative written in Go. It allows you to serve a directory and its subpaths over HTTP or HTTPS with ease. Can be used for local web development, production static-site serving, or as a network file host.
+
+---
 
 ![Screen Recording](assets/golive.gif)
 
