@@ -32,12 +32,12 @@ func incrementRequest() {
 // StartServer starts up the file server
 func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool) error {
 	go Printer(dir, httpPort)
-	fs := http.FileServer(http.Dir(dir))
+	fs := fileServer(dir)
 
 	if cache {
-		http.Handle("/", injectReload(useCache(fs)))
+		http.Handle("/", useCache(fs))
 	} else {
-		http.Handle("/", injectReload(noCache(fs)))
+		http.Handle("/", noCache(fs))
 	}
 
 	reloadChan := make(chan bool)

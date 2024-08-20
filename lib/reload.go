@@ -3,7 +3,6 @@ package lib
 import (
 	"fmt"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -35,23 +34,6 @@ func reloadHandler(reloadChan chan bool) http.Handler {
 				fmt.Println("SSE connection closed by client")
 				return
 			}
-		}
-	})
-}
-
-func injectReload(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		isHTML := strings.HasSuffix(r.URL.Path, ".html") ||
-			strings.HasSuffix(r.URL.Path, ".htm") ||
-			strings.HasSuffix(r.URL.Path, "/")
-
-		if isHTML {
-			rec := &responseInterceptor{ResponseWriter: w, statusCode: http.StatusOK}
-			h.ServeHTTP(rec, r)
-			rec.injectReloadScript()
-			fmt.Println("inject reload", r.URL.Path)
-		} else {
-			h.ServeHTTP(w, r)
 		}
 	})
 }
