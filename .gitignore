@@ -4,3 +4,4 @@ golive
 *.out
 *.html
 vendor/
+release/
