@@ -2,6 +2,8 @@
 
 golive is a lightweight and improved live-server alternative written in Go. It allows you to serve a directory and its subpaths over HTTP or HTTPS with ease.
 
+![Screen Recording](assets/golive.gif)
+
 ## Installation
 
 1. Make sure you have Go installed on your system.
@@ -11,6 +13,8 @@ golive is a lightweight and improved live-server alternative written in Go. It a
    ```
    go get github.com/debdut/golive
    ```
+
+Alternatively, you can download the binary from [releases](https://github.com/Debdut/golive/releases) and use it.
 
 ## Usage
 
