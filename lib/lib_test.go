@@ -38,14 +38,14 @@ func TestInitialPrint(t *testing.T) {
 	r, w, _ := os.Pipe()
 	os.Stdout = w
 
-	printStartMessage("/", ":80")
+	printStartMessage("/", ":80", "")
 
 	w.Close()
 	out, _ := io.ReadAll(r)
 	os.Stdout = rescueStdout
 
-	if !strings.Contains(string(out), "go-live") {
-		t.Error("Did not find go-live")
+	if !strings.Contains(string(out), "golive") {
+		t.Error("Did not find golive")
 	}
 
 	if !strings.Contains(string(out), "Serving: /") {
@@ -62,7 +62,7 @@ func TestPrintServerInfo(t *testing.T) {
 	r, w, _ := os.Pipe()
 	os.Stdout = w
 
-	printServerInformation("/", ":80")
+	printServerInformation("/", ":80", "")
 
 	w.Close()
 	out, _ := io.ReadAll(r)

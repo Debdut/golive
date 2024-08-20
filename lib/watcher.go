@@ -37,7 +37,6 @@ func watchForChanges(dir string, reloadChan chan bool) {
 				return
 			}
 			if event.Op&fsnotify.Write == fsnotify.Write {
-				fmt.Printf("Modified file: %s\n", event.Name)
 				reloadChan <- true
 			}
 		case err, ok := <-watcher.Errors:

@@ -6,18 +6,18 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/debdut/go-live/lib"
+	"github.com/debdut/golive/lib"
 	"github.com/pkg/browser"
 )
 
 // VERSION of Package
-const VERSION = "1.2.2"
+const VERSION = "1.0.0"
 const PORT = "80"
 const HTTPS_PORT = "8080"
 
 func main() {
 	var _quiet bool
-	flag.BoolVar(&_quiet, "q", false, "Quiet stops go-live from opening the browser when started.")
+	flag.BoolVar(&_quiet, "q", false, "Quiet stops golive from opening the browser when started.")
 	flag.BoolVar(&_quiet, "quiet", false, "")
 
 	var _cache bool
@@ -29,7 +29,7 @@ func main() {
 	flag.StringVar(&_port, "port", PORT, "")
 
 	var _version bool
-	flag.BoolVar(&_version, "v", false, "Print the version of go-live.")
+	flag.BoolVar(&_version, "v", false, "Print the version of golive.")
 	flag.BoolVar(&_version, "version", false, "")
 
 	var _dir string

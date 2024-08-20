@@ -31,7 +31,7 @@ func incrementRequest() {
 
 // StartServer starts up the file server
 func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool) error {
-	go Printer(dir, httpPort)
+	isHTTPS := certFile != "" && keyFile != ""
 	fs := fileServer(dir)
 
 	if cache {
@@ -49,6 +49,13 @@ func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool)
 	var wg sync.WaitGroup
 	var httpErr, httpsErr error
 
+	wg.Add(1)
+	if isHTTPS {
+		go Printer(dir, httpPort, httpsPort)
+	} else {
+		go Printer(dir, httpPort, "")
+	}
+
 	// Start HTTP server
 	wg.Add(1)
 	go func() {
@@ -60,8 +67,8 @@ func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool)
 		}
 	}()
 
-	// Start HTTPS server if cert and key are provided
-	if certFile != "" && keyFile != "" {
+	// Start HTTPS server
+	if isHTTPS {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

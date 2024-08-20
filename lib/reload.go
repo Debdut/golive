@@ -28,10 +28,10 @@ func reloadHandler(reloadChan chan bool) http.Handler {
 				}
 				flusher.Flush()
 			case <-timeout:
-				fmt.Println("SSE connection timed out")
+				// fmt.Println("SSE connection timed out")
 				return
 			case <-r.Context().Done():
-				fmt.Println("SSE connection closed by client")
+				// fmt.Println("SSE connection closed by client")
 				return
 			}
 		}

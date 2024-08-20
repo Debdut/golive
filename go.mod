@@ -1,4 +1,4 @@
-module github.com/debdut/go-live
+module github.com/debdut/golive
 
 go 1.21
 
