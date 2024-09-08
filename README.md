@@ -13,7 +13,7 @@ golive is a lightweight and improved `live-server` alternative written in Go. It
 2. Run the following command to install golive:
 
    ```
-   go get github.com/debdut/golive
+   go install github.com/debdut/golive
    ```
 
 Alternatively, you can download the binary from [releases](https://github.com/Debdut/golive/releases) and use it.
