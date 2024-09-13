@@ -49,6 +49,10 @@ func main() {
 	var _keyFile string
 	flag.StringVar(&_keyFile, "key", "", "Path to SSL key file.")
 
+	var _headers string
+	flag.StringVar(&_headers, "H", "", "Comma-separated list of custom headers to add (e.g., 'X-Custom-Header:value,Another-Header:another_value')")
+	flag.StringVar(&_headers, "headers", "", "")
+
 	flag.Parse()
 
 	if _version || (len(os.Args) >= 2 && os.Args[1] == "version") {
@@ -68,15 +72,16 @@ func main() {
 		_port = ":" + _port
 	}
 
+	headers := lib.ParseHeaders(_headers)
 	var err error
 	if _serve {
-		err = lib.StartServer(_dir, "80", _httpsPort, _certFile, _keyFile, _cache)
+		err = lib.StartServer(_dir, "80", _httpsPort, _certFile, _keyFile, _cache, headers)
 	} else {
 		// If user is sudo we don't launch the browser.
 		if !_quiet && !isSudo() {
 			browser.OpenURL(fmt.Sprintf("http://localhost%s", _port))
 		}
-		err = lib.StartServer(_dir, _port, _httpsPort, _certFile, _keyFile, _cache)
+		err = lib.StartServer(_dir, _port, _httpsPort, _certFile, _keyFile, _cache, headers)
 	}
 
 	if err != nil {

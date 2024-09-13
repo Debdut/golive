@@ -3,6 +3,7 @@ package lib
 import (
 	"fmt"
 	"net/http"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -29,15 +30,41 @@ func incrementRequest() {
 	atomic.AddUint64(&requests, 1)
 }
 
+func ParseHeaders(headerString string) map[string]string {
+	headers := make(map[string]string)
+	if headerString == "" {
+		return headers
+	}
+	pairs := strings.Split(headerString, ",")
+	for _, pair := range pairs {
+		parts := strings.SplitN(pair, ":", 2)
+		if len(parts) == 2 {
+			key := strings.TrimSpace(parts[0])
+			value := strings.TrimSpace(parts[1])
+			headers[key] = value
+		}
+	}
+	return headers
+}
+
+func addCustomHeaders(h http.Handler, headers map[string]string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		for key, value := range headers {
+			w.Header().Set(key, value)
+		}
+		h.ServeHTTP(w, r)
+	})
+}
+
 // StartServer starts up the file server
-func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool) error {
+func StartServer(dir, httpPort, httpsPort, certFile, keyFile string, cache bool, headers map[string]string) error {
 	isHTTPS := certFile != "" && keyFile != ""
 	fs := fileServer(dir)
 
 	if cache {
-		http.Handle("/", useCache(fs))
+		http.Handle("/", useCache(addCustomHeaders(fs, headers)))
 	} else {
-		http.Handle("/", noCache(fs))
+		http.Handle("/", noCache(addCustomHeaders(fs, headers)))
 	}
 
 	reloadChan := make(chan bool)

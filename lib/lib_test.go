@@ -15,7 +15,7 @@ func TestIp(t *testing.T) {
 	}
 }
 func TestServerWithoutCache(t *testing.T) {
-	go StartServer(".", ":80", "", "", "", false)
+	go StartServer(".", ":80", "", "", "", false, map[string]string{})
 	resp, err := http.Get("http://127.0.0.1/")
 	if err != nil {
 		t.Errorf("Couldn't get for the test %s", err)

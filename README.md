@@ -69,6 +69,7 @@ golive supports the following command-line options:
 - `--https-port`: Sets the HTTPS port to serve on.
 - `--cert`: Specifies the path to the SSL certificate file.
 - `--key`: Specifies the path to the SSL key file.
+- `-H`, `--headers`: Comma-separated list of custom headers to add (e.g., 'X-Custom-Header:value,Another-Header:another_value').
 
 For more information and examples, run:
 
