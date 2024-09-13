@@ -11,7 +11,7 @@ import (
 )
 
 // VERSION of Package
-const VERSION = "1.0.0"
+const VERSION = "1.0.2"
 const PORT = "80"
 const HTTPS_PORT = "8080"
 
