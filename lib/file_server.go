@@ -51,7 +51,7 @@ func getContentType(ext string) string {
 		return "text/css"
 	case ".js":
 		return "application/javascript"
-	case "wasm":
+	case ".wasm":
 		return "application/wasm"
 	case ".png":
 		return "image/png"
